@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://45.55.254.105/
 
 # Weightcare
 
@@ -16,159 +16,125 @@ llamar a los demas recursos.
 
         {}
 
-## Group Question
+## Group Users
+Recursos relacionados con los usuarios del sistema.
 
-Resources related to questions in the API.
+## User Root [/users]
+Recuperar o crear usuarios.
 
-## Question [/questions/{question_id}]
-
-A Question object has the following attributes:
-
-+ question
-+ published_at - An ISO8601 date when the question was published.
-+ url
-+ choices - An array of Choice objects.
-
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-
-### View a Questions Detail [GET]
+### Recuperar usuarios [GET]
 
 + Response 200 (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "published_at": "2014-11-11T08:40:51.620Z",
-            "url": "/questions/1",
-            "choices": [
-                {
-                    "choice": "Swift",
-                    "url": "/questions/1/choices/1",
-                    "votes": 2048
-                }, {
-                    "choice": "Python",
-                    "url": "/questions/1/choices/2",
-                    "votes": 1024
-                }, {
-                    "choice": "Objective-C",
-                    "url": "/questions/1/choices/3",
-                    "votes": 512
-                }, {
-                    "choice": "Ruby",
-                    "url": "/questions/1/choices/4",
-                    "votes": 256
-                }
-            ]
-        }
-
-## Choice [/questions/{question_id}/choices/{choice_id}]
-
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-    + choice_id: 1 (required, number) - ID of the Choice in form of an integer
-
-### Vote on a Choice [POST]
-
-This action allows you to vote on a question's choice.
-
-+ Response 201
-
-    + Headers
-
-            Location: /questions/1
-
-## Questions Collection [/questions{?page}]
-
-+ Parameters
-    + page: 1 (optional, number) - The page of questions to return
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Link: </questions?page=2>; rel="next"
+    + Attributes
+        + id: 56 (number, fixed) - ID dentro de la base de datos
+        + name: Victor (string, fixed) - Nombre de usuario
+        + email: victor@gmail.com (string, fixed) - Correo de usuario
+        + created_at: 130515105728 (number, fixed) - Fecha y hora de creacion del usuario
+        + updated_at: 140515164929 (number, fixed) - Fecha y hora de la ultima actualizacion de usuario.
 
     + Body
 
             [
                 {
-                    "question": "Favourite programming language?",
-                    "published_at": "2014-11-11T08:40:51.620Z",
-                    "url": "/questions/1",
-                    "choices": [
-                        {
-                            "choice": "Swift",
-                            "url": "/questions/1/choices/1",
-                            "votes": 2048
-                        }, {
-                            "choice": "Python",
-                            "url": "/questions/1/choices/2",
-                            "votes": 1024
-                        }, {
-                            "choice": "Objective-C",
-                            "url": "/questions/1/choices/3",
-                            "votes": 512
-                        }, {
-                            "choice": "Ruby",
-                            "url": "/questions/1/choices/4",
-                            "votes": 256
-                        }
-                    ]
+                .
+                .
+                .
+                },
+                {
+                    "id": 56,
+                    "name": "Victor",
+                    "email": "victor@gmail.com",
+                    "created_at": 130515105728,
+                    "updated_at": 140515164939
+                },
+                {
+                .
+                .
+                .
                 }
             ]
 
-### Create a New Question [POST]
+### Crear usuario [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ question (string) - The question
-+ choices (array[string]) - A collection of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
++ Request Crear usuario
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2014-11-11T08:40:51.620Z",
-                "url": "/questions/2",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "url": "/questions/2/choices/1",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "url": "/questions/2/choices/2",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "url": "/questions/2/choices/3",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "url": "/questions/2/choices/4",
-                        "votes": 0
-                    }
-                ]
+                "name": "Ana Guadalupe",
+                "email": "ana@gmail.com",
+                "password": "passwordHasheada"
             }
+            
++ Response 201 (application/json)
+
+    + Attributes
+        + id: 257 (number, fixed) - ID dentro de la base de datos
+        + name: Ana Guadalupe (string, fixed) - Nombre de usuario
+        + email: ana@gmail.com (string, fixed) - Correo de usuario
+        + created_at: 130515111012 (number, fixed) - Fecha y hora de creacion del usuario
+        + updated_at: 130515111012 (number, fixed) - Fecha y hora de la ultima actualizacion de usuario.
+
+    + Body
+            
+            {
+                "id": 257,
+                "name": "Ana Guadalupe",
+                "email": "ana@gmail.com",
+                "created_at": 130515111012,
+                "updated_at": 130515111012
+            }
+
+
+## Users Operations [/users/{id}]
+Operaciones para un usuario en especifico.
+
+    + Parameters
+        + id (number, optional, ´67´) ... ID del usuario a modificarse
+        
+### Conseguir un usuario [GET]
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: 67 (number, fixed) - ID dentro de la base de datos
+        + name: Chuy Guerrero (string, fixed) - Nombre de usuario
+        + email: chuy@gmail.com (string, fixed) - Correo de usuario
+        + created_at: 130515105728 (number, fixed) - Fecha y hora de creacion del usuario
+        + updated_at: 130515105728 (number, fixed) - Fecha y hora de la ultima actualizacion de usuario.
+    
+    + Body
+        
+            {
+                "id": 67,
+                "name": "Chuy Guerrero",
+                "email": "chuy@gmail.com",
+                "created_at": 130515105728,
+                "updated_at": 130515105728
+            }
+
+### Actualizar un usuario [PUT]
+
++ Request Actualizar usuario
+
+            {
+                "name": "Jesus Guerrero",
+                "email": "chuy@gmail.com",
+            }
+            
++ Response 200 (application/json)
+
+    + Attributes
+        + id
+        
+    + Body
+    
+            {
+                "id": 67,
+                "name": "Jesus Guerrero",
+                "email": "chuy@gmail.com",
+                "created_at": 130515105728,
+                "updated_at": 160515173422
+            }
+### Borrar un usuario [DELETE]
+
++ Response 204 (application/json)
